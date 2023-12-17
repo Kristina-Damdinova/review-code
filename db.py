@@ -1,9 +1,20 @@
-import sqlite3
+import psycopg2
 
 class DataAccessObject:
+    __instance = None
+    def __new__(cls):
+        if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
+        return cls.__instance
+
     def __init__(self):
-        self.conn = sqlite3.connect("dresses.db")
-        self.cursor = self.conn.cursor()
+        self.conn = psycopg2.connect(
+            host="db",
+            user="root",
+            password="my_password",
+            port="5432",
+            dbname="dresses.db",)
+        self.tab = self.connect.cursor()
         self.query = '''CREATE TABLE IF NOT EXISTS dresses
                    (model TEXT, price TEXT, description TEXT, url TEXT, picture TEXT)'''
         self.cursor.execute(self.query)
@@ -16,7 +27,7 @@ class DataAccessObject:
 
     def get_information_by_model(self, number):
         # Подключаюсь к базе данных
-        conn = sqlite3.connect('dresses.db')
+        conn = psycopg2.connect('dresses.db')
         cursor = conn.cursor()
         # Выбираю строку с заданным порядковым номером
         cursor.execute("SELECT model, price, description, url, picture FROM dresses WHERE rowid=?", (number,))
@@ -26,7 +37,7 @@ class DataAccessObject:
         return f"Модель: {row[0]}, Цена: {row[1]}, {row[2]}"
 
     def get_models_url(self, number):
-        conn = sqlite3.connect('dresses.db')
+        conn = psycopg2.connect('dresses.db')
         cursor = conn.cursor()
         cursor.execute("SELECT model, price, description, url, picture FROM dresses WHERE rowid=?", (number,))
         row = cursor.fetchone()

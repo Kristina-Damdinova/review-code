@@ -7,7 +7,7 @@ from pars import Parser
 class MyBot:
     pars = Parser()
     def __init__(self):
-        self.bot = telebot.TeleBot('token')
+        self.bot = telebot.TeleBot('6507072219:AAEZzqZbs5T3uWe9IVeEI52_9Bi6j3wiDEQ')
         menu = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=2)
 
         # Create callback buttons

@@ -1,6 +1,21 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  telegram_bot:
-    build: .
-    restart: always
+db:
+  container_name: postgres_container
+  image: postgres
+  environment:
+    POSTGRES_USER: user
+    POSTGRES_PASSWORD: my_password
+    POSTGRES_DB: dresses
+  ports:
+    - 5432:5432
+  volumes:
+    - /dresses:/var/lib/postgresql/data
+  restart: always
+
+bot:
+  build: tg_bot/
+  restart: always
+  expose:
+    - "5432"

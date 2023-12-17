@@ -10,5 +10,6 @@ RUN pip install --no-cache-dir bs4
 RUN pip install --no-cache-dir pyTelegramBotAPI
 RUN pip install --no-cache-dir requests
 RUN pip install --no-cache-dir lxml
+RUN pip install psycopg2
 
 CMD python bot.py
